@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">mobro2</string>
+    <string name="count">Count +1</string>
 </resources>
