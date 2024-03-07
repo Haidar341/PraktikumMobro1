@@ -7,9 +7,12 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -18,6 +21,9 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -32,6 +38,7 @@ import org.d3if0009.mobpro1.model.Hewan
 class MainActivity : ComponentActivity() {
 
     private  val data = getData()
+    private var index by mutableIntStateOf(0)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -41,7 +48,10 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    GaleriHewan(data[0])
+                    GaleriHewan(data[index]){
+                        index++
+                    }
+
                 }
             }
         }
@@ -62,7 +72,7 @@ private fun getData(): List<Hewan>{
 }
 
 @Composable
-fun  GaleriHewan(hewan: Hewan) {
+fun  GaleriHewan(hewan: Hewan,onClick: ()-> Unit = {}) {
     MainScreen {modifier ->
         Column (
         modifier = modifier
@@ -82,6 +92,15 @@ fun  GaleriHewan(hewan: Hewan) {
              style = MaterialTheme.typography.headlineLarge,
              modifier = Modifier.padding(top = 16.dp)
          )
+          Button(
+              onClick = { onClick() },
+              modifier = Modifier
+                  .fillMaxWidth(0.5f)
+                  .padding(top = 24.dp),
+              contentPadding = PaddingValues(16.dp)
+          ) {
+              Text(text = stringResource(R.string.lanjut))
+          }
     }
 
     }
