@@ -4,8 +4,12 @@ import android.content.res.Configuration
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -14,9 +18,14 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import org.d3if0003.mobro2.ui.theme.Mobro2Theme
 import org.d3if0009.mobpro1.model.Hewan
 
@@ -32,13 +41,15 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Greeting("Android")
+                    GaleriHewan(data[0])
                 }
             }
         }
     }
 
 }
+
+
 
 private fun getData(): List<Hewan>{
     return listOf(
@@ -48,6 +59,32 @@ private fun getData(): List<Hewan>{
         Hewan("Kambing", R.drawable.kambing),
         Hewan("Sapi", R.drawable.sapi),
     )
+}
+
+@Composable
+fun  GaleriHewan(hewan: Hewan) {
+    MainScreen {modifier ->
+        Column (
+        modifier = modifier
+            .fillMaxSize()
+            .padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
+        ){
+        Image(
+            painter = painterResource(hewan.imageResId),
+            contentDescription = stringResource(R.string.gambar, hewan.nama),
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.size(132.dp)
+        )
+         Text(
+             text = hewan.nama,
+             style = MaterialTheme.typography.headlineLarge,
+             modifier = Modifier.padding(top = 16.dp)
+         )
+    }
+
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -87,6 +124,6 @@ fun Greeting(name: String) {
 @Composable
 fun ScreenPreview() {
     Mobro2Theme {
-        Greeting("Android")
+        GaleriHewan(Hewan("Ayam", R.drawable.ayam))
     }
 }
