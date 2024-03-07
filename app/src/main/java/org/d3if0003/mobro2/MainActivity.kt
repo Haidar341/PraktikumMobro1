@@ -18,8 +18,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import org.d3if0003.mobro2.ui.theme.Mobro2Theme
+import org.d3if0009.mobpro1.model.Hewan
 
 class MainActivity : ComponentActivity() {
+
+    private  val data = getData()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -35,6 +38,16 @@ class MainActivity : ComponentActivity() {
         }
     }
 
+}
+
+private fun getData(): List<Hewan>{
+    return listOf(
+        Hewan("Ayam", R.drawable.ayam),
+        Hewan("Bebek", R.drawable.bebek),
+        Hewan("Domba", R.drawable.domba),
+        Hewan("Kambing", R.drawable.kambing),
+        Hewan("Sapi", R.drawable.sapi),
+    )
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
